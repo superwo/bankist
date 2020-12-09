@@ -83,10 +83,10 @@ const displayMovements = function (movements) {
 
 
 
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, cur) => acc + cur, 0);
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, cur) => acc + cur, 0);
 
-  labelBalance.textContent = `${balance} €`;
+  labelBalance.textContent = `${acc.balance} €`;
 }
 
 
@@ -140,10 +140,19 @@ btnLogin.addEventListener('click', function (e) {
 
     displayMovements(currentAccount.movements);
 
-    calcDisplayBalance(currentAccount.movements);
+    calcDisplayBalance(currentAccount);
 
     calcDisplaySummary(currentAccount);
   }
+})
+
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputTransferAmount.value);
+  const receiverAcc = accounts.find(acc => acc.username === inputTransferTo.value);
+
+  console.log(amount, receiverAcc);
 })
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
